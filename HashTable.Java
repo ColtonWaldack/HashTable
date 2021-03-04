@@ -123,9 +123,8 @@ public class HashTable {
 			if (HashArray[arrayIndexHash].contains(word)) {
 
 				// Found the key so return it
-				System.out.println(" the word " +  " ' " +word + " '" + " was found in a list at index " + arrayIndexHash);
-				System.out.println(" the index of " + arrayIndexHash + " contains a list of " + HashArray[arrayIndexHash].size() + " words." );
-				System.out.println("the word " + " ' " +word + " '" + " is found at the " + "list index of " + HashArray[arrayIndexHash].indexOf(word) );
+				JOptionPane.showMessageDialog(null, " the word " +  " ' " +word + " '" + " was found in a list at index " + arrayIndexHash + "\n the index of " + arrayIndexHash + " contains a list of " + HashArray[arrayIndexHash].size() + " words." + "\nthe word " + " ' " +word + " '" + " is found at the " + "list index of " + HashArray[arrayIndexHash].indexOf(word));
+
 
 
 
