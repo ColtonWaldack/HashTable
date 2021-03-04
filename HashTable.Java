@@ -50,6 +50,7 @@ public class HashTable {
 
 
 	public void hashFunction(String[] words, ArrayList<String>[] hashArray) {
+		int collisionCount = 0;
 
 		for (int n = 0; n < words.length; n++) {
 
@@ -66,20 +67,18 @@ public class HashTable {
 			    System.out.println("INDEX ABOVE 1999");
 			    System.exit(0);
 			}
-
-
-
-
-			System.out.println("Modulus Value= " + index + " for word " + newWord);
-            System.out.println(hashArray[index]);
-
-
+			
 			if (hashArray[index] != null) {
-				System.out.println("Collision at " + index + " adding to a list at that index");
+				System.out.println("Collision while adding word " + newWord + " at index " + index + " adding to a list at that index");
 			    hashArray[index].add(newWord);
+			    System.out.println(hashArray[index]);
+			    collisionCount ++;
+			    System.out.println(collisionCount);
+
 
 			}
 			else{
+				System.out.println("Modulus Value= " + index + " for word " + newWord);
 			    hashArray[index] = new ArrayList<String>();
 			    hashArray[index].add(newWord);
 			}
