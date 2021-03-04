@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 public class HashTable {
 
 	ArrayList<String>[] HashArray = new ArrayList[2000];
-	int arraySize;
+	static int  arraySize;
 
 
 	public static void main(String[] args) throws IOException {
@@ -22,7 +23,9 @@ public class HashTable {
         	read = new BufferedReader(new FileReader("words.txt"));
         	String currentline = null;
         	while ((currentline = read.readLine()) != null) {
-            	text.add(currentline); }
+            	text.add(currentline);
+            	arraySize ++;
+        	}
     		}
     	// Makes sure that the reader is closed even if there is some kind of exception
     	finally {
@@ -42,7 +45,26 @@ public class HashTable {
 
     	HashTable function = new HashTable();
 
+
 		function.hashFunction(wordArray, function.HashArray);
+
+		//function.findword("the");
+
+		boolean next = true;
+		while (next = true) {
+			int reply = JOptionPane.showConfirmDialog(null, "Would you like to Search for a specific word?", "Word Search?", JOptionPane.YES_NO_OPTION);
+			if (reply == JOptionPane.YES_OPTION) {
+    			String word = JOptionPane.showInputDialog("Please enter a word");
+    			function.findword(word.toLowerCase());
+
+
+			}
+			else {
+    			JOptionPane.showMessageDialog(null, "GOODBYE");
+    			System.exit(0);
+}
+		}
+
 
 
 
@@ -67,7 +89,7 @@ public class HashTable {
 			    System.out.println("INDEX ABOVE 1999");
 			    System.exit(0);
 			}
-			
+
 			if (hashArray[index] != null) {
 				System.out.println("Collision while adding word " + newWord + " at index " + index + " adding to a list at that index");
 			    hashArray[index].add(newWord);
@@ -84,6 +106,43 @@ public class HashTable {
 			}
 
 		}
+	}
+	public String findword(String word) {
+
+
+			int len = arraySize;
+			int sum = 0;
+			for (int i = 0; i < word.length(); i++) {
+				sum += ((int) word.charAt(i)) * (1 << i);
+			}
+			int arrayIndexHash = (sum % len) % 1999;
+		// Find the keys original hash key
+
+		if (HashArray[arrayIndexHash] != null) {
+
+			if (HashArray[arrayIndexHash].contains(word)) {
+
+				// Found the key so return it
+				System.out.println(" the word " +  " ' " +word + " '" + " was found in a list at index " + arrayIndexHash);
+				System.out.println(" the index of " + arrayIndexHash + " contains a list of " + HashArray[arrayIndexHash].size() + " words." );
+				System.out.println("the word " + " ' " +word + " '" + " is found at the " + "list index of " + HashArray[arrayIndexHash].indexOf(word) );
+
+
+
+			}
+			else {
+				System.out.println(" the word " + word + " was not found " );
+			}
+
+			// Check next Index
+			++arrayIndexHash;
+			// Index back to 0
+			arrayIndexHash %= arraySize;
+
+		}
+
+		return null;
+
 	}
 
 }
